@@ -1,0 +1,53 @@
+<?php
+
+namespace NowyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Aktywacja
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Aktywacja
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="od", type="datetime")
+     */
+    private $od;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="do", type="datetime")
+     */
+    private $do;
+    
+    /**
+     * 
+     *@ORM\ManyToOne(targetEntity="Nrtelefonu", inversedBy="aktywacja")
+     *
+     */
+    private $nrtelefon;
+    
+    /**
+     * 
+     *@ORM\ManyToOne(targetEntity="Package", inversedBy="aktywacja")
+     *
+     */
+    private $package;
+
+   
+}
