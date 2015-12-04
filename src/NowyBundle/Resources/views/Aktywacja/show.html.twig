@@ -15,7 +15,25 @@
             </tr>
             <tr>
                 <th>Do</th>
-                <td>{{ entity.do|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.do|date('Y-m-d H:i:s') }}
+                    
+                    {% if entity.aktywacja ==null %}
+                        
+                       Dezaktywowane 
+                       
+                    {%elseif entity.aktywacja|date('Y-m-d H:i:s') <= "now"|date('Y-m-d H:i:s') and entity.do|date('Y-m-d H:i:s') <=  "now"|date('Y-m-d H:i:s') %}
+                   
+                    <p>Koniec aktywacji</p>
+                    
+                    {% elseif entity.aktywacja|date('Y-m-d H:i:s') <= "now"|date('Y-m-d H:i:s') and "+4 days"|date('Y-m-d H:i:s') >= entity.do|date('Y-m-d H:i:s') %}
+                    
+                    <p>Aktywacja sie konczy</p>
+                        
+                    {% elseif entity.aktywacja|date('Y-m-d H:i:s') <= "now"|date('Y-m-d H:i:s') %}
+                        
+                        Aktywne{%endif%}
+                        
+                    {{ message }}</td>
             </tr>
         </tbody>
     </table>

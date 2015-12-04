@@ -102,23 +102,44 @@ class AktywacjaController extends Controller
     /**
      * Finds and displays a Aktywacja entity.
      *
-     * @Route("/{id}", name="aktywacja_show")
+     * @Route("/{id}/{mod}", defaults={"mod"=0} , name="aktywacja_show")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($id,$mod = 0)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NowyBundle:Aktywacja')->find($id);
-
+        $komunikat=' ';
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Aktywacja entity.');
         }
+        elseif($mod=='2'){
+            $entity->setAktywacja(null);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+            $komunikat="Dezaktywowano pakiet";
+        }
+        elseif($mod=='1'){
+                $date=$entity->getDo();
+                $aktywacja=$entity->getAktywacja();
+                if($aktywacja==null){
+                    $aktywacja=$entity->setAktywacja(new \DateTime());
+                }else{
+                $date->modify('+28 day');
+                $entity->setDo(new \DateTime($date->format("Y/m/d H:i:s")));}
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+                $komunikat="Aktywowano";
+            }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
+            'message'=>$komunikat,
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         );

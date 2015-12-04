@@ -20,13 +20,21 @@ class Aktywacja
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     *
+     * @var type \DateTime
+     * 
+     * @ORM\Column(name="od", type="datetime")
+     */
+    private $od;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="od", type="datetime")
+     * @ORM\Column(name="aktywacja", type="datetime")
      */
-    private $od;
+    private $aktywacja;
 
     /**
      * @var \DateTime
@@ -48,6 +56,16 @@ class Aktywacja
      *
      */
     private $package;
+ 
+    public function __construct() {
+        $this->od=new \DateTime();
+    }
+   
+    public function __toString() {
+        
+      return sprintf('Name: %s', $this->od);
+      
+    }
 
    
 }

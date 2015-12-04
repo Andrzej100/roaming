@@ -19,19 +19,44 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('aktywacja_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('aktywacja_show', { 'id': entity.id, 'mod':0 }) }}">{{ entity.id }}</a></td>
                 <td>{% if entity.od %}{{ entity.od|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if entity.do %}{{ entity.do|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.nrtelefon}}</td>
                 <td>{{ entity.nrtelefon.uzytkownik}}</td>
                 <td>{{ entity.package}}</td>
                 <td>
+                    {% if entity.aktywacja == null %}
+                     <p>Dezaktywowane 
+                         
+                         <a href="{{ path('aktywacja_show', { 'id': entity.id, 'mod':1 }) }}">Aktywuj teraz</a> </p>
+                    
+                    {%elseif entity.aktywacja|date('Y-m-d H:i:s') >= "now"|date('Y-m-d H:i:s') and entity.do|date('Y-m-d H:i:s') <=  "now"|date('Y-m-d H:i:s') %}
+                   
+                    <p>Koniec aktywacji
+                 
+                        <a href="{{ path('aktywacja_show', { 'id': entity.id, 'mod':1 }) }}">Aktywuj teraz</a> </p>
+                    
+                {% elseif entity.aktywacja|date('Y-m-d H:i:s') >= "now"|date('Y-m-d H:i:s') and "+4 days"|date('Y-m-d H:i:s') >= entity.do|date('Y-m-d H:i:s') %}
+                    
+                    <p>Aktywacja sie konczy
+                 
+                        <a href="{{ path('aktywacja_show', { 'id': entity.id, 'mod':1 }) }}">Aktywuj teraz</a> </p>
+                
+                {% elseif entity.aktywacja|date('Y-m-d H:i:s') <= "now"|date('Y-m-d H:i:s') %}
+                         
+                         <p>Aktywne
+                             
+                             <a href="{{ path('aktywacja_show', { 'id': entity.id, 'mod':2 }) }}">Dezaktywuj teraz</a> </p>
+                         
+                     {%endif%}</td>
+                <td>
                 <ul>
                     <li>
-                        <a href="{{ path('aktywacja_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('aktywacja_show', { 'id': entity.id, 'mod':0 }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('aktywacja_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('aktywacja_edit', { 'id': entity.id, 'mod':0 }) }}">edit</a>
                     </li>
                 </ul>
                 </td>

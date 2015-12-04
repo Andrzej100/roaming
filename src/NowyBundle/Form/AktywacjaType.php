@@ -15,7 +15,11 @@ class AktywacjaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('od')
+            ->add('od',null, array(
+    'attr'=>array('style'=>'display:none;'),
+    'label'=>' '           
+))
+            ->add('aktywacja')
             ->add('do')
             ->add('nrtelefon')
             ->add('package')

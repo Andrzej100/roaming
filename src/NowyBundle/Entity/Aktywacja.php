@@ -20,13 +20,21 @@ class Aktywacja
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     *
+     * @var type \DateTime
+     * 
+     * @ORM\Column(name="od", type="datetime")
+     */
+    private $od;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="od", type="datetime")
+     * @ORM\Column(name="aktywacja", type="datetime",nullable=true)
      */
-    private $od;
+    private $aktywacja;
 
     /**
      * @var \DateTime
@@ -48,6 +56,15 @@ class Aktywacja
      *
      */
     private $package;
+ 
+    
+    
+    public function __construct() {
+        $this->od= new \DateTime();
+        $this->aktywacja= new \DateTime();
+        $this->do= new \DateTime();
+    }
+  
 
    
 
@@ -83,6 +100,30 @@ class Aktywacja
     public function getOd()
     {
         return $this->od;
+    }
+
+    /**
+     * Set aktywacja
+     *
+     * @param \DateTime $aktywacja
+     *
+     * @return Aktywacja
+     */
+    public function setAktywacja($aktywacja)
+    {
+        $this->aktywacja = $aktywacja;
+
+        return $this;
+    }
+
+    /**
+     * Get aktywacja
+     *
+     * @return \DateTime
+     */
+    public function getAktywacja()
+    {
+        return $this->aktywacja;
     }
 
     /**

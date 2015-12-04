@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UzytkownikControllerTest extends WebTestCase
 {
-    /*
+    
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
@@ -19,7 +19,8 @@ class UzytkownikControllerTest extends WebTestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'nowybundle_uzytkownik[field_name]'  => 'Test',
+            'nowybundle_uzytkownik[name]'  => 'Test',
+            'nowybundle_uzytkownik[surname]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +34,7 @@ class UzytkownikControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Update')->form(array(
-            'nowybundle_uzytkownik[field_name]'  => 'Foo',
+            'nowybundle_uzytkownik[name]'  => 'Foo',
             // ... other fields to fill
         ));
 
@@ -51,5 +52,5 @@ class UzytkownikControllerTest extends WebTestCase
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
 
-    */
+    
 }
